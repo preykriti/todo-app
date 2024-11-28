@@ -8,9 +8,11 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const taskSchema = new mongoose_1.default.Schema({
     title: { type: String, required: true },
     description: { type: String },
-    completed: { type: Boolean },
+    completed: { type: Boolean, default: false },
     deadline: { type: Date },
     progress: { type: Number },
-    attachments: { type: String }
+    attachments: { type: String },
+    folder: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "taskFolder" },
+    user: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "user" },
 }, { timestamps: true });
 exports.taskModel = mongoose_1.default.model("task", taskSchema);

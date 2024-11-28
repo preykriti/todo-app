@@ -9,6 +9,5 @@ const taskFolderSchema = new mongoose_1.default.Schema({
     name: { type: String, required: true },
     user: { type: mongoose_1.default.Schema.Types.ObjectId, required: true, ref: "user" },
     tasks: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "task" }],
-    createdAt: { type: Date, default: Date.now }
-});
+}, { timestamps: true });
 exports.taskFolderModel = mongoose_1.default.model("taskFolder", taskFolderSchema);
