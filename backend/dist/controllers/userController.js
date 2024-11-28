@@ -18,9 +18,11 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const envconfig_1 = __importDefault(require("../config/envconfig"));
 const express_validator_1 = require("express-validator");
+const taskFolderModel_1 = require("../models/taskFolderModel");
 const createToken = (id) => {
     return jsonwebtoken_1.default.sign({ id }, envconfig_1.default.JWT_TOKEN, { expiresIn: "1h" });
 };
+// ! for user registration
 const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = (0, express_validator_1.validationResult)(req);
     if (!result.isEmpty()) {
@@ -42,6 +44,9 @@ const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             name,
             email,
             password: hashedPassword,
+        });
+        yield taskFolderModel_1.taskFolderModel.create({
+            name: "General", user: user._id
         });
         if (!user) {
             res

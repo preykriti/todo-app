@@ -5,10 +5,13 @@ import jwt from "jsonwebtoken";
 import ENV from "../config/envconfig";
 import { validationResult } from "express-validator";
 import { CustomJwtPayload } from "../types/types";
+import { taskFolderModel } from "../models/taskFolderModel";
 
 const createToken = (id: string): string => {
   return jwt.sign({ id }, ENV.JWT_TOKEN, { expiresIn: "1h" });
 };
+
+// ! for user registration
 
 const userRegister = async (req: Request, res: Response): Promise<void> => {
   const result = validationResult(req);
@@ -37,6 +40,10 @@ const userRegister = async (req: Request, res: Response): Promise<void> => {
       email,
       password: hashedPassword,
     });
+
+    await taskFolderModel.create({
+        name: "General", user: user._id
+    })
 
     if (!user) {
       res

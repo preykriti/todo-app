@@ -10,3 +10,7 @@ export const userValidationForLogin = [
     body("email","Enter a valid email").isEmail(),
     body("password", "Password cannot be blank").exists()
 ]
+
+export const taskValidationRule = [
+    body("title", "Title cant be blank").exists()
+]

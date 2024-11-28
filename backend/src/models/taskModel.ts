@@ -1,14 +1,15 @@
-import mongoose, { Model, Schema } from "mongoose";
+import mongoose, { Model, Schema, Document, Types } from "mongoose";
 
-export interface ITask {
+export interface ITask extends Document{
+  _id: Types.ObjectId
   title: string;
   description?: string;
   completed: boolean;
   deadline?: Date;
   progress?: number;
-  attachments?: string;
-  folder: mongoose.Schema.Types.ObjectId;
-  user: mongoose.Schema.Types.ObjectId;
+  folderID: Types.ObjectId;
+  user:Types.ObjectId;
+  newFolderName: string;
 }
 
 const taskSchema: Schema<ITask> = new mongoose.Schema<ITask>(
@@ -18,9 +19,9 @@ const taskSchema: Schema<ITask> = new mongoose.Schema<ITask>(
     completed: { type: Boolean, default: false },
     deadline: { type: Date },
     progress: { type: Number },
-    attachments: { type: String },
-    folder: { type: mongoose.Schema.Types.ObjectId, ref: "taskFolder" },
+    folderID: { type: mongoose.Schema.Types.ObjectId, ref: "taskFolder" },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    newFolderName:{type:String}
   },
   { timestamps: true }
 );

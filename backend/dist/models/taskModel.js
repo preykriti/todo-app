@@ -11,8 +11,8 @@ const taskSchema = new mongoose_1.default.Schema({
     completed: { type: Boolean, default: false },
     deadline: { type: Date },
     progress: { type: Number },
-    attachments: { type: String },
-    folder: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "taskFolder" },
+    folderID: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "taskFolder" },
     user: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "user" },
+    newFolderName: { type: String }
 }, { timestamps: true });
 exports.taskModel = mongoose_1.default.model("task", taskSchema);
