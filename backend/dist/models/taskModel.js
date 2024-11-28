@@ -8,6 +8,9 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const taskSchema = new mongoose_1.default.Schema({
     title: { type: String, required: true },
     description: { type: String },
-    completed: { type: Boolean }
+    completed: { type: Boolean },
+    deadline: { type: Date },
+    progress: { type: Number },
+    attachments: { type: String }
 }, { timestamps: true });
 exports.taskModel = mongoose_1.default.model("task", taskSchema);
