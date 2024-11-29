@@ -95,7 +95,64 @@ const getOneTask = async (req: Request, res: Response): Promise<void> => {
       return;
     }
     res.status(200).json({ success: true, task });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+    return;
+  }
 };
 
-export { addTask, getOneTask };
+//! delete a task
+const deleteTask = async(req: Request, res: Response):Promise<void>=>{
+    const taskID = req.params.id;
+
+    try {
+        let user = req.user as CustomJwtPayload | undefined;
+        const userID = user?.id;
+
+        if(!userID){
+            res.status(400).json({success:false, message:"User unauthorized."});
+            return;
+        }
+
+        const task: ITask|null = await taskModel.findOne({_id:taskID, user:userID});
+        if(!task){
+            res.status(404).json({success:false, message:"Task not found"});
+            return;
+        }
+        await taskModel.deleteOne({_id:taskID, user:userID});
+        await taskFolderModel.updateOne({_id:task.folderID, user:userID},{$pull:{tasks:taskID}})
+        res.status(200).json({success:true, message:"Task has been deleted."})
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal server error" });
+        return;
+    }
+}
+
+// ! update a task
+const updateTask = async(req: Request, res: Response):Promise<void>=>{
+    try {
+        const user = req.user as CustomJwtPayload | undefined;
+        const userID = user?.id;
+        if(!userID){
+            res.status(400).json({success:false, message:"Unauthorized user."});
+            return;
+        }
+        const taskID = req.params.id;
+        const updatedTask:ITask = req.body;
+        const task:ITask|null= await taskModel.findOne({_id:taskID, user:userID});
+        if(!task){
+            res.status(404).json({ success: false, message: "Task not found" });
+            return;
+        }
+
+        await taskModel.updateOne({_id:taskID, user:userID}, {$set:updatedTask})
+        
+    } catch (error) {
+        
+    }
+}
+
+export { addTask, getOneTask, deleteTask , updateTask};

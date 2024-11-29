@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOneTask = exports.addTask = void 0;
+exports.updateTask = exports.deleteTask = exports.getOneTask = exports.addTask = void 0;
 const taskFolderModel_1 = require("../models/taskFolderModel");
 const taskModel_1 = require("./../models/taskModel");
 //! create a new task
@@ -94,6 +94,58 @@ const getOneTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
         res.status(200).json({ success: true, task });
     }
-    catch (error) { }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal server error" });
+        return;
+    }
 });
 exports.getOneTask = getOneTask;
+//! delete a task
+const deleteTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const taskID = req.params.id;
+    try {
+        let user = req.user;
+        const userID = user === null || user === void 0 ? void 0 : user.id;
+        if (!userID) {
+            res.status(400).json({ success: false, message: "User unauthorized." });
+            return;
+        }
+        const task = yield taskModel_1.taskModel.findOne({ _id: taskID, user: userID });
+        if (!task) {
+            res.status(404).json({ success: false, message: "Task not found" });
+            return;
+        }
+        yield taskModel_1.taskModel.deleteOne({ _id: taskID, user: userID });
+        yield taskFolderModel_1.taskFolderModel.updateOne({ _id: task.folderID, user: userID }, { $pull: { tasks: taskID } });
+        res.status(200).json({ success: true, message: "Task has been deleted." });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal server error" });
+        return;
+    }
+});
+exports.deleteTask = deleteTask;
+// ! update a task
+const updateTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = req.user;
+        const userID = user === null || user === void 0 ? void 0 : user.id;
+        if (!userID) {
+            res.status(400).json({ success: false, message: "Unauthorized user." });
+            return;
+        }
+        const taskID = req.params.id;
+        const updatedTask = req.body;
+        const task = yield taskModel_1.taskModel.findOne({ _id: taskID, user: userID });
+        if (!task) {
+            res.status(404).json({ success: false, message: "Task not found" });
+            return;
+        }
+        yield taskModel_1.taskModel.updateOne({ _id: taskID, user: userID }, { $set: updatedTask });
+    }
+    catch (error) {
+    }
+});
+exports.updateTask = updateTask;
