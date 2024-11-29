@@ -1,7 +1,8 @@
 import { JwtPayload } from "jsonwebtoken";
+import mongoose from "mongoose";
 
 interface CustomJwtPayload{
-    id: string;
+    id: mongoose.Schema.Types.ObjectId;
 }
 
 declare global{

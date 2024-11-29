@@ -9,9 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addTask = void 0;
+exports.getOneTask = exports.addTask = void 0;
 const taskFolderModel_1 = require("../models/taskFolderModel");
 const taskModel_1 = require("./../models/taskModel");
+//! create a new task
 const addTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, description, completed, deadline, progress, folderID, newFolderName, } = req.body;
@@ -28,14 +29,17 @@ const addTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 user: userID,
             });
             if (existingFolder) {
-                res
-                    .status(400)
-                    .json({
+                res.status(400).json({
                     success: false,
                     message: "Folder with this name already exists",
                 });
+                return;
             }
-            folder = yield taskFolderModel_1.taskFolderModel.create({ name: newFolderName, user: userID });
+            folder = yield taskFolderModel_1.taskFolderModel.create({
+                name: newFolderName,
+                user: userID,
+            });
+            res.status(200).json({ success: true, message: "new folder created" });
         }
         else if (folderID) {
             folder = yield taskFolderModel_1.taskFolderModel.findById(folderID);
@@ -44,14 +48,23 @@ const addTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 return;
             }
         }
+        else if (!folderID && !newFolderName) {
+            res
+                .status(400)
+                .json({ success: false, message: "Please select a folder" });
+            return;
+        }
         const newTask = yield taskModel_1.taskModel.create({
             title,
             description,
             completed,
             deadline,
             progress,
-            folder: folder._id,
+            folderID: folder === null || folder === void 0 ? void 0 : folder._id,
             user: userID,
+        });
+        yield taskFolderModel_1.taskFolderModel.findByIdAndUpdate(folder === null || folder === void 0 ? void 0 : folder._id, {
+            $push: { tasks: newTask._id },
         });
         res.status(201).json({ success: true, newTask });
     }
@@ -62,3 +75,25 @@ const addTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.addTask = addTask;
+//! view a single task
+const getOneTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let user = req.user;
+        const userID = user === null || user === void 0 ? void 0 : user.id;
+        if (!userID) {
+            res.status(400).json({ success: false, message: "Unauthorized user" });
+            return;
+        }
+        const taskID = req.params.id;
+        const task = yield taskModel_1.taskModel
+            .findOne({ _id: taskID, user: userID })
+            .populate("folderID", "name");
+        if (!task) {
+            res.status(404).json({ success: false, message: "Task not found." });
+            return;
+        }
+        res.status(200).json({ success: true, task });
+    }
+    catch (error) { }
+});
+exports.getOneTask = getOneTask;
