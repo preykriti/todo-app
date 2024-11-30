@@ -122,7 +122,7 @@ const deleteTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ success: false, message: "Internal server error" });
         return;
     }
 });
@@ -137,15 +137,19 @@ const updateTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             return;
         }
         const taskID = req.params.id;
-        const updatedTask = req.body;
+        const newTask = req.body;
         const task = yield taskModel_1.taskModel.findOne({ _id: taskID, user: userID });
         if (!task) {
             res.status(404).json({ success: false, message: "Task not found" });
             return;
         }
-        yield taskModel_1.taskModel.updateOne({ _id: taskID, user: userID }, { $set: updatedTask });
+        const updatedTask = yield taskModel_1.taskModel.findByIdAndUpdate(taskID, { $set: newTask }, { new: true, runValidators: true });
+        res.status(200).json({ success: false, updatedTask });
     }
     catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+        return;
     }
 });
 exports.updateTask = updateTask;

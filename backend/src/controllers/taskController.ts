@@ -126,7 +126,7 @@ const deleteTask = async(req: Request, res: Response):Promise<void>=>{
         
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ success: false,message: "Internal server error" });
         return;
     }
 }
@@ -141,17 +141,24 @@ const updateTask = async(req: Request, res: Response):Promise<void>=>{
             return;
         }
         const taskID = req.params.id;
-        const updatedTask:ITask = req.body;
+        const newTask:ITask = req.body;
         const task:ITask|null= await taskModel.findOne({_id:taskID, user:userID});
         if(!task){
             res.status(404).json({ success: false, message: "Task not found" });
             return;
         }
 
-        await taskModel.updateOne({_id:taskID, user:userID}, {$set:updatedTask})
+        const updatedTask = await taskModel.findByIdAndUpdate(
+          taskID,
+          { $set: newTask },
+          { new: true, runValidators: true }
+        );
+        res.status(200).json({success:false, updatedTask})
         
     } catch (error) {
-        
+        console.log(error);
+        res.status(500).json({ success: false,message: "Internal server error" });
+        return;
     }
 }
 
