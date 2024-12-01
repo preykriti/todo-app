@@ -144,7 +144,7 @@ const updateTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             return;
         }
         const updatedTask = yield taskModel_1.taskModel.findByIdAndUpdate(taskID, { $set: newTask }, { new: true, runValidators: true });
-        res.status(200).json({ success: false, updatedTask });
+        res.status(200).json({ success: true, updatedTask });
     }
     catch (error) {
         console.log(error);

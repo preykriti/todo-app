@@ -9,7 +9,7 @@ export interface ITaskFolder extends Document {
 
 const taskFolderSchema: Schema<ITaskFolder> = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique:true},
     user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "user" },
     tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "task" }],
   },

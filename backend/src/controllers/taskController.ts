@@ -153,7 +153,7 @@ const updateTask = async(req: Request, res: Response):Promise<void>=>{
           { $set: newTask },
           { new: true, runValidators: true }
         );
-        res.status(200).json({success:false, updatedTask})
+        res.status(200).json({success:true, updatedTask})
         
     } catch (error) {
         console.log(error);

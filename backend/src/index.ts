@@ -4,6 +4,7 @@ import userRouter from "./routes/userRoute";
 import connectDB from "./config/db";
 import cookieParser from "cookie-parser";
 import taskRouter from "./routes/taskRoute";
+import taskFolderRouter from "./routes/taskFolderRoute";
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,7 @@ app.use(cookieParser());
 //routes
 app.use("/api/user", userRouter);
 app.use("/api/task", taskRouter);
+app.use("/api/folder", taskFolderRouter);
 
 app.listen(PORT, () => {
   console.log("App is listening on PORT " + PORT);
