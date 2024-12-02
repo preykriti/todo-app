@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.taskValidationRule = exports.userValidationForLogin = exports.userValidationRules = void 0;
+exports.folderValidationRule = exports.taskValidationRule = exports.userValidationForLogin = exports.userValidationRules = void 0;
 const express_validator_1 = require("express-validator");
 exports.userValidationRules = [
     (0, express_validator_1.body)("name", "Your username should be longer than 3 characters").isLength({ min: 3 }),
@@ -13,4 +13,7 @@ exports.userValidationForLogin = [
 ];
 exports.taskValidationRule = [
     (0, express_validator_1.body)("title", "Title cant be blank").exists()
+];
+exports.folderValidationRule = [
+    (0, express_validator_1.body)("name", "Name cannot be blank").exists()
 ];

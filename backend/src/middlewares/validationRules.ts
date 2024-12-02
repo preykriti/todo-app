@@ -14,3 +14,7 @@ export const userValidationForLogin = [
 export const taskValidationRule = [
     body("title", "Title cant be blank").exists()
 ]
+
+export const folderValidationRule = [
+    body("name", "Name cannot be blank").exists()
+]
