@@ -1,3 +1,4 @@
+import { ITaskFolder } from './../models/taskFolderModel';
 import { Request, Response } from "express";
 import { ITaskFolder, taskFolderModel } from "../models/taskFolderModel";
 import { CustomJwtPayload } from "../types/types";
@@ -133,15 +134,17 @@ export const getOneFolder = async (
       res.status(400).json({ success: false, message: "Invalid folder ID." });
       return;
     }
-    const folder = await taskFolderModel.findOne({
-      _id: folderID,
-      user: userID,
-    }).populate("tasks","title");
+    const folder = await taskFolderModel
+      .findOne({
+        _id: folderID,
+        user: userID,
+      })
+      .populate("tasks", "title");
     if (!folder) {
       res.status(400).json({ success: false, message: "Folder not found" });
       return;
     }
-    res.status(200).json({success:true, data: folder })
+    res.status(200).json({ success: true, data: folder });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Internal server error" });
@@ -149,4 +152,36 @@ export const getOneFolder = async (
   }
 };
 
-// ! update a folder
+// ! update a folder's name
+export const updateFolder = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const user = req.user as CustomJwtPayload | undefined;
+    const userID = user?.id;
+    if (!userID) {
+      res.status(400).json({ success: false, message: "Unauthorized user." });
+      return;
+    }
+    const folderID = req.params.id;
+    const newFolder: ITaskFolder = req.body;
+    const folder: ITaskFolder | null = await taskModel.findOne({
+      _id: folderID,
+      user: userID,
+    });
+    if (!folder) {
+      res.status(404).json({ success: false, message: "Folder not found" });
+      return;
+    }
+
+    const updatedFolder = await taskModel.findByIdAndUpdate(
+      folderID,
+      { $set: newFolder },
+      { new: true, runValidators: true }
+    );
+    res.status(200).json({ success: true, updatedFolder });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+    return;
+  }
+};
+
