@@ -1,0 +1,7 @@
+.task-box {
+  display: flex;
+  background-color: var(--pink);
+  border-radius: 0.4rem;
+  gap: 2rem;
+  padding: 1.25rem 2rem;
+}

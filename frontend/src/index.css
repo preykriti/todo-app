@@ -1,5 +1,6 @@
 :root {
   --bg-color: #e2d2c8;
+  /* --bg-color: #E6D8EA; */
   --navbar: #572e54;
   --dark-violet: #482a41;
   --light-violet: #8e7692;
@@ -17,4 +18,5 @@ body {
   background-color: var(--bg-color);
   color: var(--dark-brown);
   font-family: "Karla";
+  box-sizing: border-box;
 }

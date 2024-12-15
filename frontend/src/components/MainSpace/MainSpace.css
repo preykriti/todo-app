@@ -1,0 +1,8 @@
+.main-space{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    gap: 0.4rem;
+    /* background-color: blue; */
+    /* overflow: hidden; */
+}

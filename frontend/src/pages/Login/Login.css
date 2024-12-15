@@ -1,0 +1,39 @@
+.login-page{
+    background-color: var(--light-violet);
+    margin: 6rem auto;
+    padding: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    border-radius: 0.4rem;
+}
+.login-page h3{
+    font-size: xx-large;
+    margin: 0;
+}
+
+input{
+    height: 3rem;
+    width: 100%;
+    padding: 0 0.4rem;
+    border-radius: 0.4rem;
+    border: none;
+    font-size: medium;
+}
+
+.login-page button{
+    width: 30%;
+    height: 3rem;
+    background-color: var(--dark-violet);
+    border: none;
+    border-radius: 0.4rem;
+    font-size: large;
+    color: var(--pink);
+}
+
+.login-page button:hover{
+    background-color: var(--navbar);
+}
