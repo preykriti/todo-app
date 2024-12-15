@@ -1,0 +1,20 @@
+:root {
+  --bg-color: #e2d2c8;
+  --navbar: #572e54;
+  --dark-violet: #482a41;
+  --light-violet: #8e7692;
+  --pink: #ceb2bd;
+  --pink-hover: #bd99a68a;
+  --dark-brown: #3a2d34;
+  --sage-blue: #93b6a1;
+  --beige: #fbeac2;
+  padding: 0 0.8rem;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--dark-brown);
+  font-family: "Karla";
+}

@@ -1,4 +1,3 @@
-import { ITaskFolder } from './../models/taskFolderModel';
 import { Request, Response } from "express";
 import { ITaskFolder, taskFolderModel } from "../models/taskFolderModel";
 import { CustomJwtPayload } from "../types/types";

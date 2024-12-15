@@ -1,0 +1,19 @@
+nav {
+  background-color: var(--navbar);
+  color: var(--light-violet);
+  height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+  font-family: "Red Rose", serif;
+  align-items: center;
+  font-size: x-large;
+  margin: auto;
+  border-radius: 0.4rem;
+    box-shadow: 0.2rem 0.2rem 15px var(--light-violet);
+  
+}
+
+nav span {
+  color:var(--pink);
+}
