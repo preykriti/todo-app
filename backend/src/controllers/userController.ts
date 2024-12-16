@@ -16,7 +16,7 @@ const createToken = (id: string): string => {
 const userRegister = async (req: Request, res: Response): Promise<void> => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    res.status(400).json({ success: false, errors: result.array() });
+    res.status(400).json({ success: false, message: result.array()[0].msg });
     return;
   }
   try {
@@ -42,8 +42,9 @@ const userRegister = async (req: Request, res: Response): Promise<void> => {
     });
 
     await taskFolderModel.create({
-        name: "General", user: user._id
-    })
+      name: "General",
+      user: user._id,
+    });
 
     if (!user) {
       res
@@ -67,6 +68,11 @@ const userRegister = async (req: Request, res: Response): Promise<void> => {
 // ! user login function
 
 const userLogin = async (req: Request, res: Response): Promise<void> => {
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    res.status(400).json({ success: false, message: result.array()[0].msg});
+    return;
+  }
   try {
     const {
       email,

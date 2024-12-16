@@ -3,5 +3,6 @@
   background-color: var(--pink);
   border-radius: 0.4rem;
   gap: 2rem;
-  padding: 1.25rem 2rem;
+  padding: 1rem 2rem;
+  box-shadow: 5px 5px 10px var(--light-violet);
 }

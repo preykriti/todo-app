@@ -8,13 +8,13 @@ export const userValidationRules = [
 
 export const userValidationForLogin = [
     body("email","Enter a valid email").isEmail(),
-    body("password", "Password cannot be blank").exists()
+    body("password", "Password cannot be blank").notEmpty()
 ]
 
 export const taskValidationRule = [
-    body("title", "Title cant be blank").exists()
+    body("title", "Title cant be blank").notEmpty()
 ]
 
 export const folderValidationRule = [
-    body("name", "Name cannot be blank").exists()
+    body("name", "Name cannot be blank").notEmpty()
 ]
