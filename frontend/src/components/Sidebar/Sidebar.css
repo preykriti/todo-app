@@ -1,68 +1,71 @@
-.sidebar{
-    width: 25%;
-    background-color: var(--light-violet);
-    font-size:larger;
-    height:calc(100vh - 5rem);
-    /* position: fixed; */
-    border-radius: 0.4rem;
-    box-shadow: 0.4rem 0.4rem 15px var(--light-violet);
+.sidebar {
+  width: 25%;
+  background-color: var(--light-violet);
+  font-size: larger;
+  height: calc(100vh - 5.5rem);
+  /* position: fixed; */
+  position: static;
+  border-radius: 0.4rem;
+  box-shadow: 0.4rem 0.4rem 15px var(--light-violet);
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
-ul{
-    list-style-type: none;
-    padding: 0 0.8rem;
-    margin: 0;
+ul {
+  list-style-type: none;
+  padding: 0 0.8rem;
+  margin: 0;
 }
 
-li{
-    padding: 1rem 0.1rem;
-    /* background-color: red; */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid var(--navbar);
-    
-
+li {
+  padding: 1rem 0.1rem;
+  /* background-color: red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--navbar);
 }
- .today-bar li span{
-    font-size: small;
-    border-radius: 50%;
-    background-color: var(--bg-color);
-    opacity: 0.6;
-    padding: 0.2rem;
-    height: 1.25rem;
-    width: 1.25rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.today-bar li span {
+  font-size: small;
+  border-radius: 50%;
+  background-color: var(--bg-color);
+  opacity: 0.6;
+  padding: 0.2rem;
+  height: 1.25rem;
+  width: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
-li:hover{
-    background-color: var(--pink-hover);
-    border-radius: 0.4rem;
+li:hover {
+  background-color: var(--pink-hover);
+  border-radius: 0.1rem;
 }
-hr{
-    margin: 0 0.8rem;
-    padding: 0;
-    border:none;
-    height: 2px;
-    background-color: var(--navbar);
-
+hr {
+  margin: 0 0.8rem;
+  padding: 0;
+  border: none;
+  height: 2px;
+  background-color: var(--navbar);
 }
 
-.my-folders{
-    font-weight:bold;
+.my-folders {
+  font-weight: bold;
 }
-.my-folders span{
-    border-radius: 0.2rem;
-    background-color: var(--bg-color);
-    opacity: 0.6;
-    font-weight: normal;
-    padding: 0.1rem;
-    height: 2.6rem;
-    width: 3.8rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+
+.my-folders span {
+  border-radius: 0.2rem;
+  background-color: var(--bg-color);
+  opacity: 0.6;
+  font-weight: normal;
+  padding: 0.1rem;
+  height: 2.6rem;
+  width: 3.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.my-folders span:hover {
+  cursor: pointer;
 }

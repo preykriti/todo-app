@@ -1,16 +1,27 @@
-import "./Task.css"
+import { useState } from "react";
+import "./Task.css";
 
-interface TaskProps{
-    title: string;
+interface TaskProps {
+  title: string;
 }
 
-const Task:React.FC<TaskProps>= ({title}) => {
+const Task: React.FC<TaskProps> = ({ title }) => {
+  const [checked, setChecked] = useState(false);
+  const handleOnChecked = () => {
+    setChecked(!checked);
+  };
   return (
     <div className="task-box">
-        <input type="checkbox" id="task1"/>
-        <label>{title}</label>
+      <input
+        onChange={handleOnChecked}
+        type="checkbox"
+        checked={checked}
+        id="task1"
+      />
+      <div className={checked ? "cross-out" : ""}>{title}</div>
+     
     </div>
-  )
-}
+  );
+};
 
-export default Task
+export default Task;

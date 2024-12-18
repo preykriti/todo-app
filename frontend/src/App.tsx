@@ -15,7 +15,7 @@ function App() {
           <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer hideProgressBar={true} autoClose={3000} />4
+      <ToastContainer hideProgressBar={true} autoClose={3000} />
     </>
   );
 }

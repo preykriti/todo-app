@@ -41,10 +41,16 @@ const userRegister = async (req: Request, res: Response): Promise<void> => {
       password: hashedPassword,
     });
 
-    await taskFolderModel.create({
-      name: "General",
-      user: user._id,
-    });
+    try {
+      await taskFolderModel.create({
+        name: "General",
+        user: user._id,
+      });
+    } catch (error) {
+      res
+        .status(400)
+        .json({ success: false, message: "duplicate folder general" });
+    }
 
     if (!user) {
       res
@@ -56,7 +62,7 @@ const userRegister = async (req: Request, res: Response): Promise<void> => {
     const authToken = createToken(user._id.toString());
     res
       .cookie("token", authToken, { httpOnly: true, sameSite: "strict" })
-      .json({ success: true, authToken });
+      .json({ success: true, message: "User successfully registered." });
   } catch (error) {
     console.log(error);
     if (error instanceof Error) {
@@ -70,7 +76,7 @@ const userRegister = async (req: Request, res: Response): Promise<void> => {
 const userLogin = async (req: Request, res: Response): Promise<void> => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    res.status(400).json({ success: false, message: result.array()[0].msg});
+    res.status(400).json({ success: false, message: result.array()[0].msg });
     return;
   }
   try {

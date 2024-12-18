@@ -33,7 +33,7 @@ export const createFolder = async (
 ): Promise<void> => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    res.status(400).json({ success: false, errors: result.array() });
+    res.status(400).json({ success: false, message: result.array()[0].msg });
     return;
   }
   try {
@@ -152,7 +152,10 @@ export const getOneFolder = async (
 };
 
 // ! update a folder's name
-export const updateFolder = async (req: Request, res: Response): Promise<void> => {
+export const updateFolder = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const user = req.user as CustomJwtPayload | undefined;
     const userID = user?.id;
@@ -183,4 +186,3 @@ export const updateFolder = async (req: Request, res: Response): Promise<void> =
     return;
   }
 };
-
