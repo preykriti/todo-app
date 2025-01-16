@@ -17,7 +17,7 @@ export const getAllFolders = async (
       res.status(400).json({ success: false, message: "Unauthorized user." });
       return;
     }
-    const folders = await taskFolderModel.find({ user: userID });
+    const folders = await taskFolderModel.find({ user: userID }).populate('tasks');
     res.status(200).json({ success: true, folders });
   } catch (error) {
     console.log(error);
@@ -143,7 +143,7 @@ export const getOneFolder = async (
       res.status(400).json({ success: false, message: "Folder not found" });
       return;
     }
-    res.status(200).json({ success: true, data: folder });
+    res.status(200).json({ success: true, folderdata: folder });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Internal server error" });

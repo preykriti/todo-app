@@ -14,7 +14,7 @@ export interface ITask extends Document{
 
 const taskSchema: Schema<ITask> = new mongoose.Schema<ITask>(
   {
-    title: { type: String, required: true, minlength:300},
+    title: { type: String, required: true, maxlength:300},
     description: { type: String },
     completed: { type: Boolean, default: false },
     deadline: { type: Date },

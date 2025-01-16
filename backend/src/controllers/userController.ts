@@ -8,7 +8,7 @@ import { CustomJwtPayload } from "../types/types";
 import { taskFolderModel } from "../models/taskFolderModel";
 
 const createToken = (id: string): string => {
-  return jwt.sign({ id }, ENV.JWT_TOKEN, { expiresIn: "1h" });
+  return jwt.sign({ id }, ENV.JWT_TOKEN, { expiresIn: "3h" });
 };
 
 // ! for user registration

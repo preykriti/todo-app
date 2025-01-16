@@ -44,10 +44,11 @@ const TaskDetailBar = () => {
           <input type="date"></input>
         </div>
 
-
         <label htmlFor="folder-name">Select Folder</label>
         <select className="folder-name">
           <option value="general"> General</option>
+          <option value="work"> Work</option>
+          <option value="work"> Work</option>
           <option value="work"> Work</option>
           <option value="add-new">+ Add new</option>
         </select>

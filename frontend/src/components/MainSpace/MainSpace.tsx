@@ -1,24 +1,24 @@
+import { useContext } from "react";
 import Task from "../Task/Task";
 import "./MainSpace.css";
+import FolderContext from "../../context/taskFolder/taskFolderContext";
 
 const MainSpace = () => {
+  const context = useContext(FolderContext);
+  if(!context){
+    return <div>Error: No Context</div>;
+  }
+  const {tasks,  error, currentFolderId} = context;
+
+  // if(isLoading) return <div>Loading Tasks...</div>;
+  if(error) return <div>Error: {error}</div>;
   return (
     <div className="main-space">
-      <div className="task-list">
+      {currentFolderId && (<div className="task-list">
+        {tasks.map((task)=>(<Task key={task._id} title={task.title}/>))}
         <Task title="This is my first task" />
         <Task title="This is my another task" />
-        <Task title="This is my another task" />
-        <Task title="This is my another task" />
-        <Task title="This is my another task" />
-        <Task title="This is my another task" />
-        <Task title="This is my another task" />
-        <Task title="This is my another task" />
-        <Task title="This is my another task" />
-        <Task title="This is my another task" />
-        <Task title="This is my another task" />
-        <Task title="This is my another task" />
-        <Task title="This is my second task hwof at ai am a it che faohow a foa r thsi sdo es it hso fisa thoguoaigh aghaoghag agoahgodhgoaoghskfghaghairghairugha ruahrg arhgiuagh agh aghaiguhigsfhaeifh aertu haprt aerpo geari eri r tieruytier ytreitypireutyprew tpreptyyerpt erpt pery pre ypte p rtp yerpy rp rtp repdfy oag oagyoaygoay yga yg aogoag oagoagog g aaghag " />
-      </div>
+      </div>)}
       <button className="add-task-button">+</button>
     </div>
   );

@@ -38,9 +38,13 @@ li {
   align-items: center;
   text-align: center;
 }
-li:hover {
+li:not(.my-folders):hover {
   background-color: var(--pink-hover);
   border-radius: 0.1rem;
+  cursor: default;
+}
+.my-folders:hover{
+  cursor: default;
 }
 hr {
   margin: 0 0.8rem;
@@ -65,7 +69,16 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: transform 0.3s ease;
+  font-weight: bold;
 }
 .my-folders span:hover {
   cursor: pointer;
+  box-shadow: 3px 3px 2px var(--dark-violet);
+  transform: scale(1.1);
+}
+
+.selected{
+  background-color: var(--pink-hover);
+  border-radius: 0.1rem;
 }

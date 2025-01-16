@@ -25,7 +25,7 @@ const Login:React.FC =() => {
                 toast.success(response.data.message)
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
             if(error instanceof AxiosError){
                 toast.warning(error.response?.data.message);
             }
