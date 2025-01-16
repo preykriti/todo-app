@@ -56,26 +56,54 @@ hr {
 
 .my-folders {
   font-weight: bold;
+  position: relative;
 }
 
 .my-folders span {
   border-radius: 0.2rem;
   background-color: var(--bg-color);
   opacity: 0.6;
-  font-weight: normal;
+  font-weight:bold;
   padding: 0.1rem;
   height: 2.6rem;
   width: 3.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.3s ease;
   font-weight: bold;
 }
 .my-folders span:hover {
   cursor: pointer;
-  box-shadow: 3px 3px 2px var(--dark-violet);
-  transform: scale(1.1);
+  box-shadow: 3px 3px 2px var(--navbar);
+  opacity: 0.8;
+}
+
+.input-box{
+  position: absolute;
+  top: 4rem;
+  right: 2px;
+  background-color: var(--pink);
+  border-radius: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 210px;
+  padding: 9px;
+}
+
+.input-box input{
+  height: 2rem;
+  padding: 0 0.4rem;
+  border-radius: 0.4rem;
+  border: none;
+}
+.input-box button{
+  background-color: var(--dark-violet);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.4rem;
+  width: 5rem;
+  color: var(--pink);
 }
 
 .selected{

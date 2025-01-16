@@ -8,7 +8,9 @@ interface FolderContextType {
   isLoading: boolean;
   error: string | null;
   fetchTaskFromOneFolder: (folderId: string) => Promise<void>;
+  fetchFolders: ()=>Promise<void>;
   currentFolderId: string | null;
+  createFolder:(name: string)=>Promise<boolean>;
   // refreshFolders: ()=>Promise<void>;
 }
 

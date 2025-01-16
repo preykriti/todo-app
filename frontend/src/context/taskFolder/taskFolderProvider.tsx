@@ -69,6 +69,33 @@ export const FoldersProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }
 
+  // ! create a folder
+  const createFolder = async(name: string) =>{
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/folder/createfolder", {name},
+        {
+          headers:{
+            "Content-Type": "application/json"
+          },
+          withCredentials:true,
+        }
+      );
+
+      if(response.data.success){
+        setFolders(prev=>[...prev, response.data.createdFolder]);
+        toast.success("Folder created successfully");
+        return true;
+      }
+      return false;
+    } catch (err) {
+      const message = err instanceof Error? err.message: "Failed to create folder.";
+      setError(message);
+      toast.error(message);
+      return false;
+    } 
+  }
+
   useEffect(() => {
     fetchFolders();
   }, []);
@@ -84,7 +111,7 @@ export const FoldersProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <FolderContext.Provider
-      value={{ folders, isLoading, error,tasks, currentFolderId, fetchTaskFromOneFolder}}
+      value={{ folders, fetchFolders, isLoading, error,tasks, currentFolderId, fetchTaskFromOneFolder, createFolder}}
     >
       {children}
     </FolderContext.Provider>
