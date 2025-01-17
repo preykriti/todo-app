@@ -3,7 +3,6 @@ import Navbar from "../../components/Navbar/Navbar"
 import Sidebar from "../../components/Sidebar/Sidebar";
 import TaskDetailBar from "../../components/TaskDetailBar/TaskDetailBar";
 import "./Home.css"
-
 const Home = () => {
   return (
     <>
@@ -16,5 +15,4 @@ const Home = () => {
     </>
   );
 }
-
 export default Home

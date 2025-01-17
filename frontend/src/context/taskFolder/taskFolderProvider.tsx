@@ -84,7 +84,9 @@ export const FoldersProvider: React.FC<{ children: React.ReactNode }> = ({
 
       if(response.data.success){
         setFolders(prev=>[...prev, response.data.createdFolder]);
+        setCurrentFolderId(response.data.createdFolder._id);
         toast.success("Folder created successfully");
+
         return true;
       }
       return false;

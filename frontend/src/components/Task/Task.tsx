@@ -7,11 +7,12 @@ interface TaskProps {
 
 const Task: React.FC<TaskProps> = ({ title }) => {
   const [checked, setChecked] = useState(false);
+  const [showTaskDetailBar, setShowTaskDetailBar] = useState(false);
   const handleOnChecked = () => {
     setChecked(!checked);
   };
   return (
-    <div className="task-box">
+    <div className="task-box" onClick={()=>setShowTaskDetailBar(true)}>
       <input
         onChange={handleOnChecked}
         type="checkbox"

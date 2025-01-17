@@ -6,7 +6,7 @@ export interface Task {
   deadline?: Date;
 //   folderID: Types.ObjectId;
 //   user: Types.ObjectId;
-  newFolderName: string;
+  newFolderName?: string;
 }
 
 export interface TaskFolder {

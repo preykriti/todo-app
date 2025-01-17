@@ -5,7 +5,7 @@ import FolderContext from "../../context/taskFolder/taskFolderContext";
 
 const Sidebar: React.FC = () => {
 
-  const [showInputBox, setShowInputBox] = useState(true);
+  const [showInputBox, setShowInputBox] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
   const context = useContext(FolderContext);
   if (!context) {
@@ -13,10 +13,15 @@ const Sidebar: React.FC = () => {
   }
   const {createFolder} = context;
 
-  const handleSave=()=>{
+  const handleSave = async ()=>{
     if(!newFolderName.trim()){
       setShowInputBox(false);
       return;
+    }
+    const success = await createFolder(newFolderName.trim());
+    if(success){
+      setNewFolderName("");
+      setShowInputBox(false);
     }
     
   }
@@ -24,6 +29,16 @@ const Sidebar: React.FC = () => {
     setShowInputBox(false);
     setNewFolderName("");
   };
+
+  //!for keyboard
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>)=>{
+    if(e.key === 'Enter'){
+      handleSave();
+    }
+    else if(e.key === 'Escape'){
+      handleCancel();
+    }
+  }
 
   return (
     <div className="sidebar">
@@ -45,6 +60,8 @@ const Sidebar: React.FC = () => {
                 value={newFolderName}
                 placeholder="Enter folder name"
                 onChange={(e) => setNewFolderName(e.target.value)}
+                onKeyDown={handleKeyPress}
+                autoFocus
               />
               <div className="buttons">
               <button onClick={handleSave}>Save</button>

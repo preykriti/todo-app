@@ -4,6 +4,7 @@ import "./MainSpace.css";
 import FolderContext from "../../context/taskFolder/taskFolderContext";
 
 const MainSpace = () => {
+  
   const context = useContext(FolderContext);
   if(!context){
     return <div>Error: No Context</div>;
