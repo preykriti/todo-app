@@ -16,9 +16,8 @@ const MainSpace = () => {
   return (
     <div className="main-space">
       {currentFolderId && (<div className="task-list">
-        {tasks.map((task)=>(<Task key={task._id} title={task.title}/>))}
-        <Task title="This is my first task" />
-        <Task title="This is my another task" />
+        {tasks.map((task)=>(<Task key={task._id} task={task}/>))}
+
       </div>)}
       <button className="add-task-button">+</button>
     </div>

@@ -1,15 +1,15 @@
 import {useEffect, useState } from "react";
-import { Task, TaskFolder } from "../../types/types";
+import { TaskType, TaskFolder } from "../../types/types";
 import { toast } from "react-toastify";
 import axios from "axios";
 import FolderContext from "./taskFolderContext";
 
 
 export const FoldersProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
+  children
 }) => {
   const [folders, setFolders] = useState<TaskFolder[]>([]);
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<TaskType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentFolderId, setCurrentFolderId] = useState<string | null> (null);

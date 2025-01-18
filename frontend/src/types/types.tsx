@@ -1,4 +1,4 @@
-export interface Task {
+export interface TaskType {
   _id: string
   title: string;
   description?: string;
@@ -13,5 +13,5 @@ export interface TaskFolder {
   _id: string;
   name: string;
 //   user: Types.ObjectId;
-  tasks: Task[];
+  tasks: TaskType[];
 }
