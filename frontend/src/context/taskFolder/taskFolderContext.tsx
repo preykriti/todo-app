@@ -1,10 +1,10 @@
 import { createContext } from "react";
-import { Task, TaskFolder } from "../../types/types";
+import {TaskFolder, TaskType } from "../../types/types";
 
 
 interface FolderContextType {
   folders: TaskFolder[];
-  tasks: Task[];
+  tasks: TaskType[];
   isLoading: boolean;
   error: string | null;
   fetchTaskFromOneFolder: (folderId: string) => Promise<void>;

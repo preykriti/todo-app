@@ -1,9 +1,8 @@
 .sidebar {
-  width: 25%;
+  width: 20%;
   background-color: var(--light-violet);
   font-size: larger;
   height: calc(100vh - 5.5rem);
-  /* position: fixed; */
   position: static;
   border-radius: 0.4rem;
   box-shadow: 0.4rem 0.4rem 15px var(--light-violet);

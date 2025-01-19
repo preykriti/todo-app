@@ -138,7 +138,7 @@ export const getOneFolder = async (
         _id: folderID,
         user: userID,
       })
-      .populate("tasks", "title");
+       .populate("tasks", "title");
     if (!folder) {
       res.status(400).json({ success: false, message: "Folder not found" });
       return;

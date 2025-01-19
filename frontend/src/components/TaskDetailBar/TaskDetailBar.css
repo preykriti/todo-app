@@ -1,5 +1,5 @@
 .detail-bar-box {
-  width: 25%;
+  width: 20%;
   background-color: var(--light-violet);
   height: calc(100vh - 5.5rem);
   display: flex;

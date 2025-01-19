@@ -10,14 +10,14 @@ const Home = () => {
   if(!context){
      return <div>Error: No Context</div>;
   }
-  const { selectedTaskId } = context;
+  const { selectedTask} = context;
   return (
     <>
       <Navbar />
       <div className="main">
         <Sidebar />
         <MainSpace />
-        {selectedTaskId && <TaskDetailBar/>}
+        {selectedTask && <TaskDetailBar task={selectedTask}/>}
       </div>
     </>
   );

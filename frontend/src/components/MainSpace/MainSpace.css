@@ -1,9 +1,9 @@
 .main-space {
-  width: 75%;
   height: calc(100vh - 5.5rem);
   overflow: scroll;
   scrollbar-width: none;
   position: relative;
+  flex-grow: 1;
 }
 
 .task-list{
@@ -16,7 +16,7 @@
 
 .add-task-button{
     background-color: var(--dark-violet);
-    position: absolute;
+    position: fixed;
     bottom: 2rem;
     left: 70%;
     transform: translateX(-70%);

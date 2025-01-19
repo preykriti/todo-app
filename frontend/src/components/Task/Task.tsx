@@ -13,13 +13,13 @@ const Task: React.FC<TaskProps> = ({ task }) => {
    if (!context) {
      return <div>Error: No Context</div>;
    }
-  const {selectedTaskId, setSelectedTaskId} = context;
+  const {selectedTask, setSelectedTask} = context;
   const handleOnChecked = () => {
     setChecked(!checked);
   };
   console.log(task);
   return (
-    <div className={`task-box ${selectedTaskId === task._id? 'selected' : ''}`} onClick={()=>setSelectedTaskId(task._id)}>
+    <div className={`task-box ${selectedTask?._id === task._id? 'selected' : ''}`} onClick={()=>setSelectedTask(task)}>
       <input
         onChange={handleOnChecked}
         type="checkbox"

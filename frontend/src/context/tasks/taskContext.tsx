@@ -1,9 +1,10 @@
 import { createContext } from "react";
+import { TaskType } from "../../types/types";
 
 interface TaskContextType {
     // tasks: Task[];
-    selectedTaskId: string | null;
-    setSelectedTaskId: (id: string| null) =>void;
+    selectedTask: TaskType | null;
+    setSelectedTask: (task: TaskType| null) =>void;
 }
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
 export default TaskContext;
