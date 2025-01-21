@@ -1,42 +1,56 @@
-import { useContext, useState } from "react";
-import Task from "../Task/Task"
-import "./TaskDetailBar.css"
+import { useContext, useEffect, useState } from "react";
+import Task from "../Task/Task";
+import "./TaskDetailBar.css";
 import { MdFavorite } from "react-icons/md";
 import { MdFavoriteBorder } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import TaskContext from "../../context/tasks/taskContext";
-import { TaskType } from "../../types/types";
+import FolderContext from "../../context/taskFolder/taskFolderContext";
 
-interface TaskDetailBarProps {
-  task: TaskType;
-}
+// interface TaskDetailBarProps {
+//   task: TaskType;
+// }
 
-const TaskDetailBar:React.FC<TaskDetailBarProps> = ({task}) => {
+const TaskDetailBar= () => {
   const [isFavourite, setIsFavourite] = useState(false);
-  const [description, setDescription] = useState(task.description || "");
-  
+  const [description, setDescription] = useState("");
+
   const context = useContext(TaskContext);
-  if(!context){
-    return <div>Error: no context</div>
-  }
-  const { setSelectedTask} = context;
+  const folderContext = useContext(FolderContext);
+  useEffect(() => {
+      if (context?.selectedTask) {
+        setDescription(context.selectedTask.description || "");
+        
+      }
+    }, [context?.selectedTask]);
 
-  const toggleFavorite=()=>{
+     if (!context || !folderContext) {
+       return <div>Error: no context</div>;
+     }
+
+     const { setSelectedTask, selectedTask } = context;
+     const {folders} = folderContext;
+      if (!selectedTask) {
+        return <div>Error: no task selected</div>;
+      }
+
+  const toggleFavorite = () => {
     setIsFavourite(!isFavourite);
-  }
+  };
 
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>)=>{
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setDescription(e.target.value);
-      console.log(task._id);
+    console.log(selectedTask._id);
 
-    console.log(task.description);
-}
+    console.log(selectedTask.description);
+  };
 
   // const handleDeadlineChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   setDeadline(e.target.value);
   // };
-
 
   return (
     <div className="detail-bar-box">
@@ -45,12 +59,15 @@ const TaskDetailBar:React.FC<TaskDetailBarProps> = ({task}) => {
           <div className="delete-container">
             <MdDelete />
           </div>
-          <div className="close-container" onClick={()=>setSelectedTask(null)}>
+          <div
+            className="close-container"
+            onClick={() => setSelectedTask(null)}
+          >
             <RxCross2 />
           </div>
         </div>
 
-        <Task task={task} />
+        <Task task={selectedTask} />
 
         <div onClick={toggleFavorite} className="favourite-container">
           Favourite
@@ -63,7 +80,11 @@ const TaskDetailBar:React.FC<TaskDetailBarProps> = ({task}) => {
 
         <div className="description-box">
           <p>Description</p>
-          <textarea placeholder="Enter description" value={description} onChange={handleDescriptionChange}></textarea>
+          <textarea
+            placeholder="Enter description"
+            value={description}
+            onChange={handleDescriptionChange}
+          ></textarea>
         </div>
 
         <div className="deadline">
@@ -73,19 +94,16 @@ const TaskDetailBar:React.FC<TaskDetailBarProps> = ({task}) => {
 
         <label htmlFor="folder-name">Select Folder</label>
         <select className="folder-name">
-          <option value="general"> General</option>
-          <option value="work"> Work</option>
-          <option value="work"> Work</option>
-          <option value="work"> Work</option>
+          {folders?.map(folder => (<option key={folder._id} value={folder._id}>{folder.name}</option>))}
           <option value="add-new">+ Add new</option>
         </select>
       </div>
       <div className="buttons">
         <button>Save</button>
-        <button onClick={()=>setSelectedTask(null)}>Cancel</button>
+        <button onClick={() => setSelectedTask(null)}>Cancel</button>
       </div>
     </div>
   );
-}
+};
 
-export default TaskDetailBar
+export default TaskDetailBar;

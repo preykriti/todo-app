@@ -10,7 +10,6 @@ const MainSpace = () => {
     return <div>Error: No Context</div>;
   }
   const {tasks,  error, currentFolderId} = context;
-  
 
   // if(isLoading) return <div>Loading Tasks...</div>;
   if(error) return <div>Error: {error}</div>;

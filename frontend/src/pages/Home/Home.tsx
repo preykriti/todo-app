@@ -17,7 +17,7 @@ const Home = () => {
       <div className="main">
         <Sidebar />
         <MainSpace />
-        {selectedTask && <TaskDetailBar task={selectedTask}/>}
+        {selectedTask && <TaskDetailBar/>}
       </div>
     </>
   );
